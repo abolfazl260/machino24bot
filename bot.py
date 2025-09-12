@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 # Bot configuration
 BOT_TOKEN = '1984772645:AAGoojVfYCHRJN5sTHo4IKwLjUp1-03SjyY' #stage
 #BOT_TOKEN = '8472789630:AAHUujNHgV2cuTOd9AfidLWeog3MuiUVcww'  #production
-MINI_APP_URL = 'https://machino24bot.onrender.com/templates/Index.html'
+MINI_APP_URL = 'https://machino24bottest.onrender.com'
 BOT_NAME = "RentalBot"
 VERSION = "1.0.0"
 ADMIN_USER_ID = 1485409432  # User ID to receive notifications
