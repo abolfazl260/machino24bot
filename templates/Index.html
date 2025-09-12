@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Rentals</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+<header>
+    <button onclick="document.getElementById('filter-dialog').showModal()">Filter 🕵️</button>
+    <button onclick="document.getElementById('post-ad-dialog').showModal()">+</button>
+
+    <!-- عکس پروفایل کاربر -->
+    <img id="header-profile-photo" 
+         src="" 
+         alt="Profile" 
+         class="profile-avatar" 
+         onclick="document.getElementById('user-profile-dialog').showModal()">
+</header>
+
+    <section>
+        <p>Total Ads: <span id="total-ads">0</span></p>
+        <div id="active-filters"></div>
+    </section>
+
+<dialog id="user-profile-dialog">
+    <div class="profile-container">
+        <img id="profile-photo-large" class="profile-photo-large" src="" alt="Profile Photo">
+        <h2>User Profile</h2>
+        <div class="profile-info-grid">
+            <div class="profile-info-item">
+                <strong>User ID:</strong>
+                <span id="user-id"></span>
+            </div>
+            <div class="profile-info-item">
+                <strong>First Name:</strong>
+                <span id="first-name"></span>
+            </div>
+            <div class="profile-info-item">
+                <strong>Last Name:</strong>
+                <span id="last-name"></span>
+            </div>
+            <div class="profile-info-item">
+                <strong>Username:</strong>
+                <span id="username"></span>
+            </div>
+            <div class="profile-info-item">
+                <strong>Language Code:</strong>
+                <span id="language-code"></span>
+            </div>
+            <div class="profile-info-item">
+                <strong>Is Premium:</strong>
+                <span id="is-premium"></span>
+            </div>
+            <div class="profile-info-item full-width">
+                <strong>Profile Photo URL:</strong>
+                <span id="profile-photo-url"></span>
+            </div>
+        </div>
+        <button onclick="document.getElementById('user-profile-dialog').close()">Close</button>
+    </div>
+</dialog>
+
+    <dialog id="post-ad-dialog">
+        <form id="post-ad-form">
+            <label>
+                Select Country
+                <select name="country" onchange="updateCities('post-ad-form')">
+                    <option value="">Select Country</option>
+                    <option value="Iran">Iran</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Australia">Australia</option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Turkey">Turkey</option>
+                </select>
+            </label>
+            <label>
+                Select City
+                <select name="city"></select>
+            </label>
+            <label>
+                Select Rent Type
+                <select name="rent_type">
+                    <option value="">Select Rent Type</option>
+                    <option value="Offer">Offer</option>
+                    <option value="Request">Request</option>
+                </select>
+            </label>
+            <label>
+                Area
+                <input type="text" name="Area">
+            </label>
+            <label>
+                Price
+                <input type="number" name="price">
+            </label>
+            <label>
+                Currency
+                <input type="text" name="ISO_4217">
+            </label>
+            <label>
+                Available Date
+                <input type="date" name="available_date">
+            </label>
+            <label>
+                Number of Rooms
+                <input type="number" name="rooms_number">
+            </label>
+            <label>
+                Property Type
+                <input type="text" name="property_type">
+            </label>
+            <label>
+                House Rules
+                <input type="text" name="house_rules">
+            </label>
+            <label>
+                Contact Information
+                <input type="text" name="contact_information">
+            </label>
+            <label>
+                Select Rental Duration
+                <select name="rental_duration">
+                    <option value="">Select Rental Duration</option>
+                    <option value="Short-term">Short-term</option>
+                    <option value="Long-term">Long-term</option>
+                </select>
+            </label>
+            <label>
+                Select Roommate Gender
+                <select name="roommate_gender">
+                    <option value="">Select Roommate Gender</option>
+                    <option value="Any">Any</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </label>
+            <label>
+                House Furniture
+                <input type="text" name="house_furniture">
+            </label>
+            <label>
+                Pets Allowed?
+                <select name="pets_allowed">
+                    <option value="">Pets Allowed?</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </label>
+            <label>
+                Smoking Allowed?
+                <select name="smoking_allowed">
+                    <option value="">Smoking Allowed?</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </label>
+            <label>
+                Image URL
+                <input type="url" name="Image_URL">
+            </label>
+            <label>
+                Title
+                <input type="text" name="Title">
+            </label>
+            <label>
+                Website Reference
+                <input type="url" name="website_reference">
+            </label>
+            <button type="button" onclick="postAd()">Post Ad</button>
+            <button type="button" onclick="document.getElementById('post-ad-dialog').close()">Cancel</button>
+        </form>
+    </dialog>
+
+    <dialog id="filter-dialog">
+        <form id="filter-form">
+            <label>
+                Select Country
+                <select name="country" onchange="updateCities('filter-form')">
+                    <option value="">Select Country</option>
+                    <option value="Iran">Iran</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Germany">Germany</option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Turkey">Turkey</option>
+                </select>
+            </label>
+            <label>
+                Select City
+                <select name="city"></select>
+            </label>
+            <label>
+                Select Rent Type
+                <select name="rent_type">
+                    <option value="">Select Rent Type</option>
+                    <option value="Offer">Offer</option>
+                    <option value="Request">Request</option>
+                </select>
+            </label>
+            <label>
+                Area
+                <input type="text" name="Area">
+            </label>
+            <label>
+                Min Price
+                <input type="number" name="min_price">
+            </label>
+            <label>
+                Max Price
+                <input type="number" name="max_price">
+            </label>
+            <label>
+                Currency
+                <input type="text" name="ISO_4217">
+            </label>
+            <label>
+                Min Rooms
+                <input type="number" name="min_rooms">
+            </label>
+            <label>
+                Max Rooms
+                <input type="number" name="max_rooms">
+            </label>
+            <label>
+                Select Rental Duration
+                <select name="rental_duration">
+                    <option value="">Select Rental Duration</option>
+                    <option value="Short-term">Short-term</option>
+                    <option value="Long-term">Long-term</option>
+                </select>
+            </label>
+            <label>
+                Select Roommate Gender
+                <select name="roommate_gender">
+                    <option value="">Select Roommate Gender</option>
+                    <option value="Any">Any</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </label>
+            <label>
+                Pets Allowed?
+                <select name="pets_allowed">
+                    <option value="">Pets Allowed?</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </label>
+            <label>
+                Smoking Allowed?
+                <select name="smoking_allowed">
+                    <option value="">Smoking Allowed?</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </label>
+            <button type="button" onclick="applyFilters()">Apply Filters</button>
+            <button type="button" onclick="document.getElementById('filter-dialog').close()">Cancel</button>
+        </form>
+    </dialog>
+
+    <section>
+        <div id="ads-container">
+            <p>Loading ads...</p>
+        </div>
+
+    </section>
+</body>
+</html>
