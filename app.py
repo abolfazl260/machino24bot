@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory, redirect
 import sqlite3
+import os
 from datetime import datetime
 
 app = Flask(__name__)
@@ -276,4 +277,5 @@ def delete_ad():
     return jsonify({'success': affected_rows > 0})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.getenv('PORT', 5000))  # پیش‌فرض 5000 برای تست محلی
+    app.run(host='0.0.0.0', port=port, debug=True)
