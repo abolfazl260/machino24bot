@@ -16,6 +16,7 @@ MINI_APP_URL = 'https://machino24bottest.onrender.com'
 BOT_NAME = "RentalBot"
 VERSION = "1.0.0"
 ADMIN_USER_ID = 1485409432  # User ID to receive notifications
+WEBHOOK_URL = f"{MINI_APP_URL}/webhook"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -113,16 +114,7 @@ def handle_text(message):
 # Error handler
 def handle_error(e):
     logger.error(f"Bot error: {str(e)}")
-    # You can add notification to admin here if needed
 
 # Start bot with error handling
 if __name__ == "__main__":
-    try:
-        logger.info("Starting bot...")
-        bot.infinity_polling()
-    except Exception as e:
-        handle_error(e)
-        logger.error("Bot crashed, restarting in 5 seconds...")
-        import time
-        time.sleep(5)
-        bot.infinity_polling()
+    logger.info("Bot started with Webhook")
