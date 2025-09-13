@@ -2,9 +2,10 @@ from flask import Flask, request, jsonify, redirect
 import sqlite3
 import os
 from datetime import datetime
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app, resources={r"/api/*": {"origins": "https://splendorous-dodol-424be3.netlify.app"}})  # اجازه دسترسی از Netlify
 # Initialize SQLite database
 def init_db():
     conn = sqlite3.connect('rentals.db')
@@ -277,5 +278,5 @@ def delete_ad():
     return jsonify({'success': affected_rows > 0})
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))  # پیش‌فرض 5000 برای تست محلی
-    app.run(host='0.0.0.0', port=port, debug=True)
+    port = int(os.getenv('PORT', 5001))  # تغییر به پورت 5001
+    app.run(host='0.0.0.0', port=port)
