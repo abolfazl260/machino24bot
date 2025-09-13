@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, send_from_directory, redirect
+from flask import Flask, request, jsonify, redirect
 import sqlite3
 import os
 from datetime import datetime
@@ -51,12 +51,12 @@ init_db()
 @app.route('/')
 def index():
     # redirect user to external HTML
-    return redirect("https://machino24bot.onrender.com/templates/Index.html")
+    return redirect("https://splendorous-dodol-424be3.netlify.app/templates/")
 
 @app.route('/static/<path:filename>')
 def static_files(filename):
     # redirect static file requests to external host
-    return redirect(f"https://machino24bot.onrender.com/static/{filename}")
+    return redirect(f"https://splendorous-dodol-424be3.netlify.app/static/{filename}")
 
 # API to get cities for a country
 @app.route('/api/get_cities', methods=['GET'])
