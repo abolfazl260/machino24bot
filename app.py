@@ -1,11 +1,10 @@
-from flask import Flask, request, jsonify, redirect
+# app.py
+from flask import Flask, render_template, request, jsonify, send_from_directory
 import sqlite3
-import os
 from datetime import datetime
-from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "https://splendorous-dodol-424be3.netlify.app"}})  # اجازه دسترسی از Netlify
+
 # Initialize SQLite database
 def init_db():
     conn = sqlite3.connect('rentals.db')
@@ -51,13 +50,11 @@ init_db()
 # Route for the Mini App entry point
 @app.route('/')
 def index():
-    # redirect user to external HTML
-    return redirect("https://splendorous-dodol-424be3.netlify.app/templates/")
+    return render_template('index.html')
 
 @app.route('/static/<path:filename>')
 def static_files(filename):
-    # redirect static file requests to external host
-    return redirect(f"https://splendorous-dodol-424be3.netlify.app/static/{filename}")
+    return send_from_directory(app.static_folder, filename)
 
 # API to get cities for a country
 @app.route('/api/get_cities', methods=['GET'])
@@ -278,5 +275,4 @@ def delete_ad():
     return jsonify({'success': affected_rows > 0})
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5001))  # تغییر به پورت 5001
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)

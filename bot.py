@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 # Bot configuration
 BOT_TOKEN = '1984772645:AAGoojVfYCHRJN5sTHo4IKwLjUp1-03SjyY'
-MINI_APP_URL = 'https://splendorous-dodol-424be3.netlify.app/templates/'
+MINI_APP_URL = 'https://machino24bottest.onrender.com'
 BOT_NAME = "RentalBot"
 VERSION = "1.0.0"
 ADMIN_USER_ID = 1485409432  # User ID to receive notifications
