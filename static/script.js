@@ -99,12 +99,8 @@ function fetchAds(page = 1, append = false) {
         if (value) params.append(key, value);
     }
 
-    fetch(`http://localhost:5000/api/get_ads?${params.toString()}`) 
-        .then(r => {
-            console.log('Response status:', r.status); // برای دیباگ
-            console.log('Response headers:', r.headers.get('content-type')); // برای دیباگ
-            return r.json();
-        })
+    fetch(`/api/get_ads?${params.toString()}`)
+        .then(r => r.json())
         .then(data => {
             const adsContainer = document.getElementById('ads-container');
             if (!adsContainer) return;
